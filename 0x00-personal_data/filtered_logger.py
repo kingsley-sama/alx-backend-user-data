@@ -5,7 +5,7 @@ import re
 
 def filter_datum(fields: list, redaction: str,
                  message: str, separator: str) -> str:
-    """returns the log messages encrypted"""
+    """returns the log messages in encrypted format encrypted"""
     for word in fields:
         message = re.sub('{}=[^{}]*'.format(word, separator),
                          '{}={}'.format(word, redaction), message)
