@@ -15,21 +15,21 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
 @app.errorhandler(404)
-def not_found() -> str:
+def not_found(error) -> str:
     """ Not found handler
     """
     return jsonify({"error": "Not found"}), 404
 
 
 @app.errorhandler(401)
-def unauthorized() -> str:
+def unauthorized(error) -> str:
     """ unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
 
 @app.errorhandler(403)
-def forbiden() -> str:
+def forbiden(error) -> str:
     """user not allowed to access
     resource error
     """
