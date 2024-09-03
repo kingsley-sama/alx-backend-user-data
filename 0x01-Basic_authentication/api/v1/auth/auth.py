@@ -13,16 +13,17 @@ class Auth:
          """
         if path:
             path = path if path.endswith('/') else path+'/'
-        if not excluded_paths or path not in excluded_paths:
+        if not path or not excluded_paths or path not in excluded_paths:
             return True
-        else:
-            return False
+        return False
 
     def authorization_header(self, request=None) -> str:
         """public method that returns None -
         request will be the Flask request object
         """
-        if not request or "Authorization" not in request.headers:
+        if not request:
+            return None
+        if "Authorization" not in request.headers:
             return None
 
     def current_user(self, request=None) -> TypeVar('User'):
