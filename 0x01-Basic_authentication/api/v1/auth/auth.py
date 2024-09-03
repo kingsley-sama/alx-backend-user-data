@@ -11,7 +11,10 @@ class Auth:
         """public method that returns False - path and excluded_paths will
          be used later, now, you don’t need to take care of them
          """
-        return False
+        if not path or not excluded_paths or path not in excluded_paths:
+            return False
+        else:
+            return True
 
     def authorization_header(self, request=None) -> str:
         """public method that returns None -
@@ -23,4 +26,4 @@ class Auth:
         """public method that returns None -
         request will be the Flask request object
         """
-        return request
+        return None
