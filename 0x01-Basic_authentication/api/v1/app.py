@@ -26,7 +26,7 @@ def unauthorized(error) -> str:
     """
     return jsonify({"error": "Unauthorized"}), 401
 
-@pp.errorHnadler(403)
+@app.errorhandler(403)
 def forbiden():
     """user not allowed to access
     resource error
