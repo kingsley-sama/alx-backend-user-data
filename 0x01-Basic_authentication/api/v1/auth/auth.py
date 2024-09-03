@@ -21,10 +21,11 @@ class Auth:
         """public method that returns None -
         request will be the Flask request object
         """
-        if not request:
+        if request is None:
             return None
         if "Authorization" not in request.headers:
             return None
+        return (request.headers)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """public method that returns None -
