@@ -21,6 +21,7 @@ if auth:
 
 @app.before_request
 def prerequest_funct():
+    """this is the prerequest function"""
     _paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
     if auth and auth.require_auth(request.path, _paths):
         if auth.authorization_header(request) is None:
