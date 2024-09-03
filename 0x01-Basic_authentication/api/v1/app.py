@@ -33,7 +33,7 @@ def forbiden(error) -> str:
     """user not allowed to access
     resource error
     """
-    return jsonify({"error": "Forbiden"}), 403
+    return jsonify({"error": "Forbidden"}), 403
 
 
 if __name__ == "__main__":
