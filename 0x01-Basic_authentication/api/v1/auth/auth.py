@@ -11,10 +11,12 @@ class Auth:
         """public method that returns False - path and excluded_paths will
          be used later, now, you don’t need to take care of them
          """
+        if path:
+            path = path if path.endswith('/') else path + '/'
         if not path or not excluded_paths or path not in excluded_paths:
-            return False
-        else:
             return True
+        else:
+            return False
 
     def authorization_header(self, request=None) -> str:
         """public method that returns None -
