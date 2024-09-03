@@ -1,8 +1,9 @@
-  #!/usr/bin/env python3
+#!/usr/bin/env python3
 """this module handles the authentication of users"""
 
-from typing import  List, TypeVar
-from flask import  request
+from typing import List, TypeVar
+from flask import request
+
 
 class Auth:
     """this class handles the authentication of users"""
