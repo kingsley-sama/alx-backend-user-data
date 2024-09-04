@@ -55,3 +55,32 @@ class BasicAuth(Auth):
             return (None, None)
         data = decoded_base64_authorization_header.split(':')
         return(data)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """that returns the User instance based on his email and password.
+        """
+        if user_email is None or not isinstance(user_email, str):
+            return None
+        if user_pwd is None or not isinstance(user_pwd, str):
+            return None
+        from models.user import User
+        users = User.search({'email': user_email})
+        if not users:
+            return None
+        for user in users:
+            if user.is_valid_password(user_pwd):
+                return user
+            return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """overload current_user - which now overloads Auth.current_user
+        but with a request input
+        """
+        auth_header = self.authorization_header(request)
+        b64_header = self.extract_base64_authorization_header(auth_header)
+        decode_header = self.decode_base64_authorization_header(b64_header)
+        user_credentials = self.extract_user_credentials(decode_header)
+        user = self.user_object_from_credentials(
+            user_credentials[0], user_credentials[1])
+        return user
