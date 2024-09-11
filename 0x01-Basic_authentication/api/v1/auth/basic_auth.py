@@ -9,8 +9,6 @@ import base64
 
 class BasicAuth(Auth):
     """this class handles the authentication of users"""
-    def __init__(self):
-        pass
 
     def extract_base64_authorization_header(
             self, authorization_header: str) -> str:
@@ -78,10 +76,20 @@ class BasicAuth(Auth):
         """overload current_user - which now overloads Auth.current_user
         but with a request input
         """
-        auth_header = self.authorization_header(request)
-        b64_header = self.extract_base64_authorization_header(auth_header)
-        decode_header = self.decode_base64_authorization_header(b64_header)
-        user_credentials = self.extract_user_credentials(decode_header)
-        user = self.user_object_from_credentials(
-            user_credentials[0], user_credentials[1])
-        return user
+        auth_header = \
+            self.authorization_header(request)
+        if auth_header:
+            b64_header = \
+                self.extract_base64_authorization_header(auth_header)
+            if b64_header:
+                decode_header = \
+                    self.decode_base64_authorization_header(b64_header)
+                if decode_header:
+                    email, pwd = \
+                        self.extract_user_credentials(decode_header)
+                    print(email, pwd)
+                    if email:
+                        user = self.user_object_from_credentials(
+                            email, pwd)
+                        return user
+        return None
