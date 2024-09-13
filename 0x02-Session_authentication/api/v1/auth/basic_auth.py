@@ -74,15 +74,14 @@ class BasicAuth(Auth):
 
     def current_user(self, request=None) -> TypeVar('User'):
         """overload current_user - which now overloads Auth.current_user
-        but with a request input
+        but with
+        a request input
         """
         auth_header = \
             self.authorization_header(request)
-        print(auth_header)
         if auth_header:
             b64_header = \
                 self.extract_base64_authorization_header(auth_header)
-            print(b64_header)
             if b64_header:
                 decode_header = \
                     self.decode_base64_authorization_header(b64_header)
